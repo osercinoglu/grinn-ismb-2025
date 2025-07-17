@@ -21,21 +21,14 @@ gRINN is a comprehensive Python-based tool that:
 ### Primary Objectives
 1. **Tool Testing & Validation**: Test gRINN with diverse protein systems and simulation datasets
 2. **Bug Identification & Fixes**: Identify and resolve issues encountered during real-world usage
-3. **Tutorial Development**: Create comprehensive tutorials and documentation for different use cases
+3. **Tutorial Development**: Create tutorials for different use cases
 4. **Feature Enhancement**: Implement new features based on community feedback and needs
 5. **Performance Optimization**: Improve computational efficiency and scalability
-
-### Expected Outcomes
-- Enhanced stability and reliability of gRINN
-- Comprehensive documentation and tutorial resources
-- Expanded test coverage with diverse protein systems
-- Performance improvements and optimizations
-- Community-driven feature additions
 
 ## 🏗️ How to Contribute
 
 ### For Testers
-- **Test gRINN** with your own MD simulation data
+- **Test gRINN** with your own MD simulation data or using the sample input trajectories that will be provided.
 - **Report bugs** and unexpected behaviors via GitHub issues
 - **Share your results** and analysis experiences
 - **Suggest improvements** based on your workflow needs
@@ -47,83 +40,12 @@ gRINN is a comprehensive Python-based tool that:
 - **Enhance the web dashboard** with new visualization options
 
 ### For Documentation Contributors
-- **Write tutorials** for specific use cases (protein-ligand, membrane proteins, etc.)
+- **Write tutorials** for specific use cases
 - **Create example workflows** with sample data
-
-### For Data Contributors
-- **Provide test datasets** with known expected results
-- **Share interesting case studies** for tutorial development
-
-## 📋 Project Tasks
-
-### Testing & Validation
-- [ ] Test gRINN with protein-ligand complexes
-- [ ] Validate results with membrane protein systems
-- [ ] Test scalability with large protein complexes
-- [ ] Validate Docker containerization across different platforms
-- [ ] Test the interactive dashboard with various browsers
-
-### Bug Fixes & Improvements
-- [ ] Address reported issues from the main repository
-- [ ] Improve error handling and user feedback
-- [ ] Fix memory management issues with large trajectories
-- [ ] Resolve dependency conflicts and installation issues
-
-### Documentation & Tutorials
-- [ ] Create step-by-step tutorials for common workflows
-- [ ] Document best practices for different protein systems
-- [ ] Develop troubleshooting guides
-- [ ] Write API documentation with examples
-- [ ] Create video tutorials for the web dashboard
-
-### Feature Development
-- [ ] Implement additional network analysis metrics
-- [ ] Add support for different force fields
-- [ ] Develop batch processing capabilities
-- [ ] Add export options for network visualization tools
-- [ ] Implement statistical significance testing for interactions
-
-### Performance Optimization
-- [ ] Profile and optimize computational bottlenecks
-- [ ] Implement parallel processing improvements
-- [ ] Optimize memory usage for large systems
-- [ ] Add progress tracking for long-running calculations
 
 ## 🛠️ Getting Started
 
-### Prerequisites
-- Python 3.10+
-- GROMACS (for MD simulation processing)
-- Basic knowledge of molecular dynamics simulations
-- Familiarity with Python and/or Docker
-
-### Quick Setup
-
-#### Using Docker (Recommended)
-```bash
-# Clone this repository
-git clone https://github.com/osercinoglu/grinn-ismb-2025.git
-cd grinn-ismb-2025
-
-# Build Docker image
-docker build -t grinn .
-
-# Run with sample data
-docker run -p 8051:8051 grinn dashboard test
-```
-
-#### Using Conda
-```bash
-# Setup environment
-conda create -n grinn python=3.10
-conda activate grinn
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Test installation
-python -m grinn.tests.test_installation
-```
+For detailed installation instructions and setup guides, please visit the [main gRINN repository](https://github.com/osercinoglu/grinn).
 
 ### Sample Data
 We will provide sample datasets for testing:
@@ -155,17 +77,6 @@ Contributors may also bring their own GROMACS-generated simulation trajectories.
 - [Main gRINN Repository](https://github.com/osercinoglu/grinn)
 - [Publication (of the first version of the tool)](https://doi.org/10.1093/nar/gky381)
 - [Installation Guide](https://github.com/osercinoglu/grinn#installation--usage)
-
-### Sample Workflows
-- Basic protein analysis
-- Protein-ligand interaction studies
-- Membrane protein energy networks
-- Large-scale comparative analysis
-
-### Community Resources
-- [GitHub Issues](https://github.com/osercinoglu/grinn/issues)
-- [Discussion Forum](https://github.com/osercinoglu/grinn/discussions)
-- [CollaborationFest Slack Channel](#grinn-collaboration)
 
 ## 👥 Team & Contributors
 
