@@ -1,75 +1,229 @@
-# Sample Data and Examples - gRINN CollaborationFest
+# Suggested Test Systems - gRINN CollaborationFest
 
-This guide describes the sample datasets provided for testing gRINN and includes example commands for different analysis scenarios.
+This guide provides a list of recommended protein systems for testing gRINN. Contributors can use these PDB structures to generate their own MD trajectories and test the tool with fresh input data.
 
-## Available Sample Datasets
+## Why Use Different Test Systems?
 
-### 1. Small Protein System (villin-headpiece)
-- **File**: `small_protein.pdb`, `small_protein.top`, `small_protein.xtc`
-- **Description**: 35-residue villin headpiece subdomain (HP-35)
-- **Size**: ~35 residues
-- **Runtime**: 2-5 minutes
-- **Purpose**: Quick testing, validation, learning
+The goal is to test gRINN with newly-generated input from different researchers, which helps:
+- Identify issues with diverse protein types and sizes
+- Test compatibility with different GROMACS setups
+- Validate results across different simulation protocols
+- Discover edge cases and unexpected behaviors
 
-**Example Analysis**:
+## Recommended Test Systems
+
+### Small Proteins (< 100 residues)
+**Purpose**: Quick testing, validation, learning the tool
+
+| Protein | PDB ID | Residues | Description | Why Test? |
+|---------|--------|----------|-------------|-----------|
+| Villin Headpiece | `2F4K` | 35 | Fast-folding mini-protein | Very fast to simulate, well-studied |
+| Trp-cage | `1L2Y` | 20 | Ultra-fast folding protein | Minimal system, good for debugging |
+| WW Domain | `1PIN` | 37 | Small β-sheet protein | Tests β-sheet interactions |
+| Chignolin | `1UAO` | 10 | Minimal β-hairpin | Extremely small test case |
+
+### Medium Proteins (100-300 residues)
+**Purpose**: Standard testing scenarios
+
+| Protein | PDB ID | Residues | Description | Why Test? |
+|---------|--------|----------|-------------|-----------|
+| Lysozyme | `1LYS` | 129 | Well-studied enzyme | Classic test system, stable |
+| Ubiquitin | `1UBQ` | 76 | Small regulatory protein | Compact, all-β structure |
+| Protein G | `1PGB` | 56 | Immunoglobulin-binding | Mixed α/β structure |
+| Crambin | `1CRN` | 46 | Plant seed protein | Contains disulfide bonds |
+
+### Protein-Ligand Complexes
+**Purpose**: Test protein-ligand interaction analysis
+
+| Protein | PDB ID | Residues | Ligand | Why Test? |
+|---------|--------|----------|--------|-----------|
+| Lysozyme + inhibitor | `1LYZ` | 129 | Tri-NAG | Clear binding site |
+| Trypsin + inhibitor | `1PPH` | 223 | Benzamidine | Strong binding |
+| HIV Protease | `1HTM` | 198 | Inhibitor | Drug target |
+| Carbonic Anhydrase | `1CA2` | 259 | Inhibitor | Well-defined active site |
+
+### Large Systems (> 300 residues)
+**Purpose**: Test scalability and performance
+
+| Protein | PDB ID | Residues | Description | Why Test? |
+|---------|--------|----------|-------------|-----------|
+| Antibody Fab | `1IGY` | ~450 | Heavy + light chains | Multi-chain system |
+| Barnase-Barstar | `1BRS` | ~250 | Protein-protein complex | Interface interactions |
+| T4 Lysozyme | `1L63` | 164 | Larger enzyme | More complex topology |
+| Immunoglobulin | `1IGT` | ~220 | Antibody fragment | β-sandwich structures |
+
+### Challenging Systems
+**Purpose**: Test edge cases and robustness
+
+| Protein | PDB ID | Residues | Description | Challenge |
+|---------|--------|----------|-------------|-----------|
+| Membrane protein | `1OKC` | 348 | Rhodopsin | Membrane environment |
+| Intrinsically disordered | `1F0R` | 140 | p53 TAD | Flexible regions |
+| Multi-domain | `1TEN` | 89+76 | Fibronectin | Domain interfaces |
+| Metal-binding | `1ZNC` | 65 | Zinc finger | Metal coordination |
+
+## How to Use These Systems
+
+### 1. Choose Your Test System
+- **New users**: Start with small proteins (Villin, Trp-cage)
+- **Experienced users**: Try medium or large systems
+- **Method developers**: Use challenging systems
+
+### 2. Download Structure
 ```bash
-python grinn_workflow.py small_protein.pdb results_small/ \
-  --top small_protein.top \
-  --traj small_protein.xtc \
+# Download PDB file
+wget https://files.rcsb.org/download/1L2Y.pdb
+
+# Or use your preferred method to get the structure
+```
+
+### 3. Prepare MD Simulation
+- Clean the structure (remove waters, heterogens as needed)
+- Generate topology with GROMACS
+- Run your simulation protocol
+- Generate trajectory for gRINN analysis
+
+### 4. Test with gRINN
+```bash
+python grinn_workflow.py your_protein.pdb results/ \
+  --top your_protein.top \
+  --traj your_trajectory.xtc \
   --nt 4
 ```
 
-### 2. Protein-Ligand Complex (lysozyme-inhibitor)
-- **File**: `protein_ligand.pdb`, `protein_ligand.top`, `protein_ligand.xtc`
-- **Description**: Lysozyme with bound inhibitor
-- **Size**: ~129 residues + 1 ligand
-- **Runtime**: 5-10 minutes
-- **Purpose**: Testing protein-ligand interactions
+## Testing Scenarios
 
-**Example Analysis**:
+### Basic Functionality Tests
+- Does gRINN run without errors?
+- Are output files generated correctly?
+- Does the dashboard load and display results?
+
+### Scientific Validation Tests
+- Do energy values make physical sense?
+- Are strong interactions captured correctly?
+- Do network representations look reasonable?
+
+### Performance Tests
+- How long does analysis take?
+- Memory usage with different system sizes?
+- Effect of frame skipping on results?
+
+### Robustness Tests
+- Different force fields (AMBER, CHARMM, OPLS)
+- Various simulation lengths
+- Different trajectory formats (.xtc, .trr)
+- Unusual residue names or modifications
+
+## What to Report
+
+### Successful Tests
+- System details (protein, size, simulation parameters)
+- Runtime and memory usage
+- Interesting scientific findings
+- Workflow that worked well
+
+### Issues Found
+- Error messages and when they occur
+- Unexpected results or behaviors
+- Performance problems
+- Suggestions for improvement
+
+### Comparison Studies
+- Results from different force fields
+- Effect of simulation length
+- Comparison with experimental data
+- Network analysis insights
+
+## Creating Your Test Dataset
+
+### Recommended Simulation Protocol
+1. **Structure preparation**: Clean PDB, add hydrogens
+2. **Solvation**: Add water box (if desired)
+3. **Minimization**: Energy minimize the system
+4. **Equilibration**: Short NVT/NPT equilibration
+5. **Production**: 10-100 ns simulation (depending on system)
+6. **Post-processing**: Extract protein-only trajectory
+
+### GROMACS Example Workflow
 ```bash
-# Analyze protein-ligand interactions
-python grinn_workflow.py protein_ligand.pdb results_ligand/ \
-  --top protein_ligand.top \
-  --traj protein_ligand.xtc \
-  --source_sel "protein" \
-  --target_sel "resname LIG" \
-  --nt 4
+# 1. Process structure
+gmx pdb2gmx -f protein.pdb -o processed.pdb -p topol.top -ff amber99sb-ildn -water tip3p
 
-# Analyze protein internal interactions
-python grinn_workflow.py protein_ligand.pdb results_protein/ \
-  --top protein_ligand.top \
-  --traj protein_ligand.xtc \
-  --source_sel "protein" \
-  --target_sel "protein" \
-  --nt 4
+# 2. Create box and solvate
+gmx editconf -f processed.pdb -o boxed.pdb -c -d 1.0 -bt cubic
+gmx solvate -cp boxed.pdb -cs spc216.gro -p topol.top -o solvated.pdb
+
+# 3. Add ions if needed
+gmx grompp -f ions.mdp -c solvated.pdb -p topol.top -o ions.tpr
+echo "SOL" | gmx genion -s ions.tpr -o ions.pdb -p topol.top -pname NA -nname CL -neutral
+
+# 4. Energy minimization
+gmx grompp -f minim.mdp -c ions.pdb -p topol.top -o em.tpr
+gmx mdrun -deffnm em
+
+# 5. NVT equilibration
+gmx grompp -f nvt.mdp -c em.gro -r em.gro -p topol.top -o nvt.tpr
+gmx mdrun -deffnm nvt
+
+# 6. NPT equilibration
+gmx grompp -f npt.mdp -c nvt.gro -r nvt.gro -p topol.top -o npt.tpr
+gmx mdrun -deffnm npt
+
+# 7. Production MD
+gmx grompp -f md.mdp -c npt.gro -t npt.cpt -p topol.top -o md.tpr
+gmx mdrun -deffnm md
+
+# 8. Extract protein trajectory for gRINN
+echo "Protein" | gmx trjconv -s md.tpr -f md.xtc -o protein_traj.xtc -pbc mol -center
 ```
 
-### 3. Large Protein Complex (antibody Fab fragment)
-- **File**: `large_complex.pdb`, `large_complex.top`, `large_complex.xtc`
-- **Description**: Antibody Fab fragment (heavy + light chains)
-- **Size**: ~450 residues
-- **Runtime**: 20-60 minutes (depending on trajectory length)
-- **Purpose**: Testing scalability and performance
+## Tips for Effective Testing
 
-**Example Analysis**:
-```bash
-# Full analysis with frame skipping
-python grinn_workflow.py large_complex.pdb results_large/ \
-  --top large_complex.top \
-  --traj large_complex.xtc \
-  --skip 10 \
-  --nt 8
+### Start Small
+- Begin with small, well-behaved systems
+- Use short trajectories initially
+- Verify basic functionality before scaling up
 
-# Chain-specific analysis
-python grinn_workflow.py large_complex.pdb results_chains/ \
-  --top large_complex.top \
-  --traj large_complex.xtc \
-  --source_sel "chain A" \
-  --target_sel "chain B" \
-  --skip 5 \
-  --nt 8
-```
+### Document Everything
+- Keep track of what you test
+- Note any modifications to standard protocols
+- Record both successes and failures
+
+### Share Results
+- Post successful workflows in discussions
+- Report bugs with clear reproduction steps
+- Share interesting scientific findings
+
+### Collaborate
+- Coordinate with others to avoid duplicate testing
+- Share computational resources if possible
+- Help troubleshoot others' issues
+
+## Resources
+
+### Structure Databases
+- [RCSB PDB](https://www.rcsb.org/)
+- [PDB Europe](https://www.ebi.ac.uk/pdbe/)
+- [Membrane Proteins](https://blanco.biomol.uci.edu/mpstruc/)
+
+### Simulation Tutorials
+- [GROMACS Tutorials](http://www.mdtutorials.com/gmx/)
+- [Best Practices](https://www.mdtutorials.com/gmx/lysozyme/index.html)
+- [Force Field Comparison](https://www.mdtutorials.com/gmx/complex/index.html)
+
+### Analysis Tools
+- [VMD](https://www.ks.uiuc.edu/Research/vmd/)
+- [PyMOL](https://pymol.org/)
+- [ChimeraX](https://www.cgl.ucsf.edu/chimerax/)
+
+## Getting Help
+
+- **Technical issues**: GitHub issues on main repository
+- **Simulation questions**: GROMACS user forum
+- **gRINN usage**: GitHub discussions
+- **CollaborationFest**: Ask coordinators during event
+
+Happy testing with real systems! 🧬
 
 ## Example Workflows
 

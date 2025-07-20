@@ -41,15 +41,22 @@ gRINN is a comprehensive Python-based tool that:
 
 ## 🛠️ Getting Started
 
-For detailed installation instructions and setup guides, please visit the [main gRINN repository](https://github.com/osercinoglu/grinn).
+### Quick Start Guide
+1. **Read the Contributor Guide**: Start with [`CONTRIBUTING.md`](CONTRIBUTING.md) for an overview of how to participate
+2. **Choose Your Role**: Decide whether you want to test, develop, or write documentation
+3. **Follow the Specific Guide**: Use the detailed tutorials below based on your chosen contribution type
 
-### Sample Data
-We will provide four sample input trajectories for testing:
-- Small protein system (< 100 residues)
-- Protein-ligand complex
-- Large protein complex with multiple chains (> 500 residues)
+### Detailed Guides
+- **📋 [Main Contributor Guide](CONTRIBUTING.md)** - Start here for project overview and setup
+- **🧪 [Testing Guide](tutorials/testing-guide.md)** - For those who want to test gRINN with real data
+- **💻 [Development Guide](tutorials/development-guide.md)** - For code contributors and developers
+- **📖 [Documentation Guide](tutorials/documentation-guide.md)** - For tutorial and documentation writers
+- **🧬 [Suggested Test Systems](tutorials/sample-data-guide.md)** - Recommended protein systems with PDB IDs for testing
 
-Contributors may also bring their own GROMACS-generated simulation trajectories.
+### Installation & Setup
+For installation instructions and basic usage, visit the [main gRINN repository](https://github.com/osercinoglu/grinn).
+
+**Contributors will generate their own MD trajectories** using suggested protein systems to test gRINN with fresh, diverse input data.
 
 ## 📊 Current Status
 
@@ -58,20 +65,21 @@ Contributors may also bring their own GROMACS-generated simulation trajectories.
 - ✅ Protein Energy Network construction
 - ✅ Interactive web dashboard
 - ✅ Docker containerization
-- ✅ Basic documentation (as found in this README)
+- ✅ Basic documentation
 
-### Known Issues
-- 🔍 Memory usage with very large trajectories
-- 🔍 Performance optimization needed for >1000 residue systems
-- 🔍 Limited documentation for advanced use cases
-- 🔍 Dashboard compatibility with some browser versions
+### Areas for Improvement
+- 🎯 **Testing**: Validate with diverse protein systems and simulation setups
+- 🎯 **Performance**: Optimize memory usage and speed for large systems
+- 🎯 **Documentation**: Create comprehensive tutorials and troubleshooting guides
+- 🎯 **Robustness**: Fix edge cases and improve error handling
+- 🎯 **Usability**: Enhance dashboard features and user experience
 
-## 📚 Resources
+## 📚 Resources & Links
 
-### Documentation
-- [Main gRINN Repository](https://github.com/osercinoglu/grinn)
-- [Publication (of the first version of the tool)](https://doi.org/10.1093/nar/gky381)
-- [Installation Guide](https://github.com/osercinoglu/grinn#installation--usage)
+### Essential Resources
+- **[Main gRINN Repository](https://github.com/osercinoglu/grinn)** - Installation, source code, and basic documentation
+- **[Scientific Publication](https://doi.org/10.1093/nar/gky381)** - Original method description and validation
+- **[GROMACS Tutorials](http://www.mdtutorials.com/gmx/)** - Learn MD simulation basics if needed
 
 ## 👥 Team & Contributors
 
