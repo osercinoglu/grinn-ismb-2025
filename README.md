@@ -22,8 +22,6 @@ gRINN is a comprehensive Python-based tool that:
 1. **Tool Testing & Validation**: Test gRINN with diverse protein systems and simulation datasets
 2. **Bug Identification & Fixes**: Identify and resolve issues encountered during real-world usage
 3. **Tutorial Development**: Create tutorials for different use cases
-4. **Feature Enhancement**: Implement new features based on community feedback and needs
-5. **Performance Optimization**: Improve computational efficiency and scalability
 
 ## 🏗️ How to Contribute
 
@@ -35,8 +33,6 @@ gRINN is a comprehensive Python-based tool that:
 
 ### For Developers
 - **Fix identified bugs** and improve code quality
-- **Implement new features** from the feature wishlist
-- **Optimize performance** for large-scale analyses
 - **Enhance the web dashboard** with new visualization options
 
 ### For Documentation Contributors
@@ -48,7 +44,7 @@ gRINN is a comprehensive Python-based tool that:
 For detailed installation instructions and setup guides, please visit the [main gRINN repository](https://github.com/osercinoglu/grinn).
 
 ### Sample Data
-We will provide sample datasets for testing:
+We will provide four sample input trajectories for testing:
 - Small protein system (< 100 residues)
 - Protein-ligand complex
 - Membrane protein system
