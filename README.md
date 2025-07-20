@@ -47,8 +47,7 @@ For detailed installation instructions and setup guides, please visit the [main 
 We will provide four sample input trajectories for testing:
 - Small protein system (< 100 residues)
 - Protein-ligand complex
-- Membrane protein system
-- Large protein complex (> 500 residues)
+- Large protein complex with multiple chains (> 500 residues)
 
 Contributors may also bring their own GROMACS-generated simulation trajectories.
 
