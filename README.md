@@ -23,40 +23,32 @@ gRINN is a comprehensive Python-based tool that:
 2. **Bug Identification & Fixes**: Identify and resolve issues encountered during real-world usage
 3. **Tutorial Development**: Create tutorials for different use cases
 
-## 🏗️ How to Contribute
+## 🛠️ How to Contribute
 
-### For Testers
-- **Test gRINN** with your own MD simulation data or using the sample input trajectories that will be provided.
-- **Report bugs** and unexpected behaviors via GitHub issues
-- **Share your results** and analysis experiences
-- **Suggest improvements** based on your workflow needs
+### Everyone Starts Here:
+1. **Get a protein system** - Use your own data OR pick from our [suggested systems](tutorials/test-systems.md)
+2. **Run a quick simulation** - Generate a short trajectory (or use existing data)
+3. **Test gRINN** - Run the tool and see what happens
+4. **Report back** - Share results, bugs, or suggestions
 
-### For Developers
-- **Fix identified bugs** and improve code quality
-- **Enhance the web dashboard** with new visualization options
-
-### For Documentation Contributors
-- **Write tutorials** for specific use cases
-- **Create example workflows** with sample data
+### Then Choose Your Path:
+- **🧪 Continue Testing**: Try more proteins, report bugs, validate edge cases
+- **💻 Develop**: Fix issues you found, add features, improve performance
+- **📖 Write Tutorials**: *After successful testing* - create guides for your specific use case
 
 ## 🛠️ Getting Started
 
-### Quick Start Guide
-1. **Read the Contributor Guide**: Start with [`CONTRIBUTING.md`](CONTRIBUTING.md) for an overview of how to participate
-2. **Choose Your Role**: Decide whether you want to test, develop, or write documentation
-3. **Follow the Specific Guide**: Use the detailed tutorials below based on your chosen contribution type
+### Step-by-Step Workflow
+1. **[Setup](CONTRIBUTING.md#setup)** - Install gRINN and GROMACS
+2. **[Get Test Data](tutorials/test-systems.md)** - Download a protein or use your own
+3. **[Quick Simulation](tutorials/quick-simulation.md)** - Generate test trajectory (10-15 min)
+4. **[Test gRINN](tutorials/test-grinn.md)** - Run the analysis
+5. **[Report Results](CONTRIBUTING.md#reporting)** - Share what you found
 
-### Detailed Guides
-- **📋 [Main Contributor Guide](CONTRIBUTING.md)** - Start here for project overview and setup
-- **🧪 [Testing Guide](tutorials/testing-guide.md)** - For those who want to test gRINN with real data
-- **💻 [Development Guide](tutorials/development-guide.md)** - For code contributors and developers
-- **📖 [Documentation Guide](tutorials/documentation-guide.md)** - For tutorial and documentation writers
-- **🧬 [Suggested Test Systems](tutorials/sample-data-guide.md)** - Recommended protein systems with PDB IDs for testing
-
-### Installation & Setup
-For installation instructions and basic usage, visit the [main gRINN repository](https://github.com/osercinoglu/grinn).
-
-**Contributors will generate their own MD trajectories** using suggested protein systems to test gRINN with fresh, diverse input data.
+### Skip Steps If:
+- **Have existing trajectories?** Skip to Step 4 (testing)
+- **Want to develop?** First test the tool, then read [development notes](tutorials/development.md)
+- **Want to write tutorials?** First test successfully, then check [writing guide](tutorials/documentation.md)
 
 ## 📊 Current Status
 
