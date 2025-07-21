@@ -39,16 +39,16 @@ gRINN is a comprehensive Python-based tool that:
 ## 🛠️ Getting Started
 
 ### Step-by-Step Workflow
-1. **[Setup](CONTRIBUTING.md#setup)** - Install gRINN and GROMACS
+1. **[Setup](CONTRIBUTING.md#setup)** - Build gRINN Docker image
 2. **[Get Test Data](tutorials/test-systems.md)** - Download a protein or use your own
-3. **[Quick Simulation](tutorials/quick-simulation.md)** - Generate test trajectory (10-15 min)
-4. **[Test gRINN](tutorials/test-grinn.md)** - Run the analysis
+3. **[Quick Simulation](tutorials/quick-simulation.md)** - Generate test trajectory using Docker (10-15 min)
+4. **[Test gRINN](tutorials/testing-guide.md)** - Run the analysis using Docker
 5. **[Report Results](CONTRIBUTING.md#reporting)** - Share what you found
 
 ### Skip Steps If:
-- **Have existing trajectories?** Skip to Step 4 (testing)
-- **Want to develop?** First test the tool, then read [development notes](tutorials/development.md)
-- **Want to write tutorials?** First test successfully, then check [writing guide](tutorials/documentation.md)
+- **Have existing trajectories?** Skip to Step 4 (testing) - but ensure files are in .gro format
+- **Want to develop?** First test the tool using Docker, then read [development notes](tutorials/development-guide.md)
+- **Want to write tutorials?** First test successfully using Docker, then check [writing guide](tutorials/documentation-guide.md)
 
 ## 📊 Current Status
 

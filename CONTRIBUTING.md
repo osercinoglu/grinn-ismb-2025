@@ -3,21 +3,27 @@
 ## Quick Start
 
 ### Setup
-1. **Install gRINN**: Follow [main repository instructions](https://github.com/osercinoglu/grinn)
-2. **Install GROMACS**: You'll need this for simulations (`conda install -c conda-forge gromacs`)
+1. **Install Docker**: Make sure Docker is installed and running
+2. **Build gRINN Docker image**: 
+   ```bash
+   git clone https://github.com/osercinoglu/grinn.git
+   cd grinn
+   docker build -t grinn .
+   ```
 3. **Fork this repo**: For sharing your results and improvements
 
 ### The Workflow (Everyone Does This)
 ```bash
-# 1. Get a protein system
+# 1. Create working directory and get a protein system
+mkdir grinn_test && cd grinn_test
 wget https://files.rcsb.org/download/1L2Y.pdb  # or use your own
 
-# 2. Run quick simulation (see tutorials/quick-simulation.md)
-python prepare_system.py 1L2Y.pdb
-gmx mdrun -deffnm protein -v -nt 4  # 5-10 ns is enough
+# 2. Run quick simulation using Docker (see tutorials/quick-simulation.md)
+docker run -v $(pwd):/data -w /data grinn gmx pdb2gmx -f 1L2Y.pdb -o protein.gro -p topol.top -ff amber99sb-ildn -water tip3p
+# ... follow full simulation steps in quick-simulation.md
 
-# 3. Test gRINN
-python grinn_workflow.py protein.pdb results/ --top protein.top --traj protein.xtc
+# 3. Test gRINN using Docker
+docker run -v $(pwd):/data grinn workflow /data/em.gro /data/results --top /data/topol.top --traj /data/protein_traj.xtc
 
 # 4. Check results and report back!
 ```
@@ -59,9 +65,9 @@ grinn-ismb-2025/
 ├── tutorials/          # Short, focused guides
 │   ├── test-systems.md      # Protein suggestions
 │   ├── quick-simulation.md  # 10-min simulation setup
-│   ├── test-grinn.md       # Basic testing
-│   ├── development.md      # For developers
-│   └── documentation.md    # For writers
+│   ├── testing-guide.md     # Basic testing
+│   ├── development-guide.md # For developers
+│   └── documentation-guide.md # For writers
 └── results/            # Share your findings here
 ```
 
