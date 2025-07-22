@@ -18,9 +18,9 @@
 mkdir grinn_test && cd grinn_test
 wget https://files.rcsb.org/download/1L2Y.pdb  # or use your own
 
-# 2. Run quick simulation using Docker (see tutorials/quick-simulation.md)
-docker run -v $(pwd):/data -w /data grinn gmx pdb2gmx -f 1L2Y.pdb -o protein.gro -p topol.top -ff amber99sb-ildn -water tip3p
-# ... follow full simulation steps in quick-simulation.md
+# 2. Run quickstart workflow using Docker (see tutorials/quickstart.md)
+docker build -f Dockerfile.dev -t grinn-dev . && cd path/to/test/data
+# ... follow full workflow in quickstart.md
 
 # 3. Test gRINN using Docker
 docker run -v $(pwd):/data grinn workflow /data/em.gro /data/results --top /data/topol.top --traj /data/protein_traj.xtc
@@ -64,8 +64,8 @@ grinn-ismb-2025/
 ├── CONTRIBUTING.md     # This file
 ├── tutorials/          # Short, focused guides
 │   ├── test-systems.md      # Protein suggestions
-│   ├── quick-simulation.md  # 10-min simulation setup
-│   ├── testing-guide.md     # Basic testing
+│   ├── quickstart.md        # Complete 5-min workflow
+│   ├── test-systems.md      # Recommended proteins
 │   ├── development-guide.md # For developers
 │   └── documentation-guide.md # For writers
 └── results/            # Share your findings here

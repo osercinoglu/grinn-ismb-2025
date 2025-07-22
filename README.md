@@ -41,8 +41,8 @@ gRINN is a comprehensive Python-based tool that:
 ### Step-by-Step Workflow
 1. **[Setup](CONTRIBUTING.md#setup)** - Build gRINN Docker image
 2. **[Get Test Data](tutorials/test-systems.md)** - Download a protein or use your own
-3. **[Quick Simulation](tutorials/quick-simulation.md)** - Generate test trajectory using Docker (10-15 min)
-4. **[Test gRINN](tutorials/testing-guide.md)** - Run the analysis using Docker
+3. **[Quickstart Guide](tutorials/quickstart.md)** - Complete workflow from protein to results (5 min)
+4. **[Test Systems](tutorials/test-systems.md)** - Recommended proteins for testing
 5. **[Report Results](CONTRIBUTING.md#reporting)** - Share what you found
 
 ### Skip Steps If:
