@@ -82,7 +82,7 @@ gmx grompp -f /app/mdp_files/minim.mdp -c solvated.gro -p topol.top -o em.tpr -m
 gmx mdrun -v -deffnm em -nt 8
 
 # Step 5: Short (toy) MD simulation
-gmx grompp -f /app/mdp_files/prod.mdp -c em.gro -p topol.top -o md.tpr
+gmx grompp -f /app/mdp_files/prod.mdp -c em.gro -p topol.top -o md.tpr -maxwarn 5
 gmx mdrun -v -deffnm md
 
 # Copy results back to host
