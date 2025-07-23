@@ -45,20 +45,14 @@ gRINN is a comprehensive Python-based tool that:
 4. **[Test Systems](tutorials/test-systems.md)** - Recommended proteins for testing
 5. **[Report Results](CONTRIBUTING.md#reporting)** - Share what you found
 
-### Quick Test Examples
+### Start Here
 
-#### ⚡ Quick Test (5 minutes)
+#### ⚡ Setup
 ```bash
-# Get gRINN
+# Get gRINN (docker build will take time, so be patient...)
 git clone https://github.com/osercinoglu/grinn.git
 cd grinn && docker build -t grinn .
 
-# Test with included data
-docker run grinn bash -c "cd /app && python grinn_workflow.py gRINN_Dashboard/test_data/prot_lig_1/system_dry.pdb /tmp/test_results --tpr gRINN_Dashboard/test_data/prot_lig_1/system_dry.pdb"
-
-# View results
-docker run -p 8051:8051 grinn dashboard test
-# Open: http://localhost:8051
 ```
 
 #### 🧪 Real Protein Test with GROMACS Preparation (15-30 minutes)
@@ -69,20 +63,20 @@ wget https://files.rcsb.org/download/1L2Y.pdb
 # Build gRINN Docker image
 docker build -t grinn .
 
-# Step 1: Prepare protein structure with AMBER force field
+# Step 1: Prepare protein structure with an AMBER force field
 docker run -v $(pwd):/data grinn gmx pdb2gmx -f /data/1L2Y.pdb -o /data/processed.gro -p /data/topol.top -ff amber99sb-ildn -water tip3p
 
 # Step 2: Define simulation box
 docker run -v $(pwd):/data grinn gmx editconf -f /data/processed.gro -o /data/boxed.gro -c -d 1.0 -bt cubic
 
-# Step 3: Add solvent (optional but recommended)
+# Step 3: Add solvent
 docker run -v $(pwd):/data grinn gmx solvate -cp /data/boxed.gro -cs spc216.gro -o /data/solvated.gro -p /data/topol.top
 
 # Step 4: Energy minimization
 docker run -v $(pwd):/data grinn gmx grompp -f /app/mdp_files/minim.mdp -c /data/solvated.gro -p /data/topol.top -o /data/em.tpr
 docker run -v $(pwd):/data grinn gmx mdrun -v -deffnm /data/em
 
-# Step 5: Short MD simulation
+# Step 5: Short (toy) MD simulation
 docker run -v $(pwd):/data grinn gmx grompp -f /app/mdp_files/npt.mdp -c /data/em.gro -p /data/topol.top -o /data/md.tpr
 docker run -v $(pwd):/data grinn gmx mdrun -v -deffnm /data/md
 
@@ -101,7 +95,7 @@ docker run -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results -
 ```
 
 ### Skip Steps If:
-- **Have existing trajectories?** Skip to Step 6 (gRINN analysis) - but ensure files are in .gro format
+- **Have existing trajectories?** Skip to Step 6 (gRINN analysis)
 - **Want to develop?** First test the tool using Docker, then read [development notes](tutorials/development-guide.md)
 - **Want to write tutorials?** First test successfully using Docker, then check [writing guide](tutorials/documentation-guide.md)
 

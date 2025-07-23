@@ -87,6 +87,9 @@ python -c "import grinn; print('Setup complete!')"
 
 ### 3. Testing Your Changes
 ```bash
+# First, build image with modified code.
+docker build -t grinn -f Dockerfile.dev .
+
 # Quick test with Docker
 cd /path/to/test/data
 docker run -v $(pwd):/data grinn-dev workflow /data/protein.gro /data/results \
@@ -95,66 +98,3 @@ docker run -v $(pwd):/data grinn-dev workflow /data/protein.gro /data/results \
 # Test dashboard
 docker run -p 8051:8051 -v $(pwd):/data grinn-dev dashboard /data/results
 ```
-
-## Common Development Tasks
-
-### Adding New Features
-1. **Plan**: Describe the feature in an issue first
-2. **Implement**: Start with minimal working version
-3. **Test**: Use test systems from tutorials/test-systems.md
-4. **Document**: Update relevant documentation
-5. **Submit**: Create pull request with clear description
-
-### Fixing Bugs
-1. **Reproduce**: Use the exact scenario that triggers the bug
-2. **Debug**: Add logging or use debugger
-3. **Fix**: Implement minimal fix
-4. **Test**: Verify fix works and doesn't break other functionality
-5. **Submit**: Create pull request referencing the issue
-
-### Performance Optimization
-1. **Profile**: Use tools like `cProfile` or `memory_profiler`
-2. **Identify bottlenecks**: Focus on actual performance issues
-3. **Optimize**: Make targeted improvements
-4. **Benchmark**: Compare before/after performance
-5. **Test**: Ensure optimization doesn't break functionality
-
-## Code Style Guidelines
-- Follow PEP 8 for Python code style
-- Use meaningful variable and function names
-- Add docstrings for new functions and classes
-- Keep functions focused and relatively short
-- Comment complex algorithms
-
-## Testing Guidelines
-- Test with small proteins first (< 50 residues)
-- Use multiple test systems with different characteristics
-- Test edge cases (very small/large proteins, unusual structures)
-- Verify output format consistency (.gro files, proper trajectory format)
-- Test both Docker and local installations when possible
-
-## Debugging Tips
-- Use Docker's interactive mode for debugging: `docker run -it grinn-dev bash`
-- Check file permissions when using volume mounts
-- Verify GROMACS installation inside container
-- Use print statements or logging for tracking execution flow
-
-## Performance Considerations
-- Large proteins (>500 residues) may require significant memory
-- Consider frame skipping for very long trajectories
-- Profile memory usage for large systems
-- Test on different hardware configurations when possible
-
-## Getting Help
-- Check existing issues on GitHub
-- Ask questions in discussions
-- Reach out to project maintainers
-- Use community resources for GROMACS/MDAnalysis questions
-
-## Resources
-- [Main gRINN Repository](https://github.com/osercinoglu/grinn)
-- [GROMACS Documentation](https://manual.gromacs.org/)
-- [MDAnalysis Documentation](https://docs.mdanalysis.org/)
-- [Plotly/Dash Documentation](https://dash.plotly.com/)
-
-Ready to contribute? Start by testing the current version, then pick an issue to work on! 🚀
