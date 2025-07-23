@@ -91,17 +91,17 @@ exit
 
 # Step 6: Run gRINN analysis
 
-docker run --user $(id -u):$(id -g) -w /data -v $(pwd):/data grinn workflow /data/em.gro /data/grinn_results --top /data/topol.top --traj /data/md.xtc
+docker run -w /data -v $(pwd):/data grinn workflow /data/em.gro /data/grinn_results --top /data/topol.top --traj /data/md.xtc
 
 # Step 7: View interactive results
-docker run --user $(id -u):$(id -g) -p 8051:8051 -v $(pwd):/data grinn dashboard /data/grinn_results
+docker run -p 8051:8051 -v $(pwd):/data grinn dashboard /data/grinn_results
 ```
 
 #### 🎯 Your Own Data Test
 ```bash
 
 # Use your protein/trajectory
-docker run --user $(id -u):$(id -g) -w /data -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results --top /data/your_system.top --traj /data/your_trajectory.xtc
+docker run -w /data -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results --top /data/your_system.top --traj /data/your_trajectory.xtc
 ```
 
 ### Skip Steps If:
@@ -140,12 +140,9 @@ docker run --user $(id -u):$(id -g) -w /data -v $(pwd):/data grinn workflow /dat
 
 ### Custom Analysis
 ```bash
-# Ensure output directory exists and has proper permissions
-mkdir -p results
-chmod 755 results
 
 # Test specific parameters
-docker run --user $(id -u):$(id -g) -w /data -v $(pwd):/data -v $(pwd)/results:/results grinn \
+docker run -w /data -v $(pwd):/data -v $(pwd)/results:/results grinn \
   workflow /data/protein.pdb /results --initpairfiltercutoff 5.0 --create_pen --pen_cutoffs 1.0 2.0
 ```
 
