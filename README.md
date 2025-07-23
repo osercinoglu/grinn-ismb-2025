@@ -101,7 +101,7 @@ docker run -p 8051:8051 -v $(pwd):/data grinn dashboard /data/grinn_results
 ```bash
 
 # Use your protein/trajectory
-docker run -w /data -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results --top /data/your_system.top --traj /data/your_trajectory.xtc
+docker run -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results --top /data/your_system.top --traj /data/your_trajectory.xtc
 ```
 
 ### Skip Steps If:
