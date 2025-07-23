@@ -51,47 +51,57 @@ gRINN is a comprehensive Python-based tool that:
 ```bash
 # Get gRINN (docker build will take time, so be patient...)
 git clone https://github.com/osercinoglu/grinn.git
-cd grinn && docker build -t grinn .
-
+cd grinn && docker build -t grinn -f Dockerfile.dev .
 ```
 
 #### 🧪 Real Protein Test with GROMACS Preparation (15-30 minutes)
 ```bash
 # Get a protein (tiny one for speed)
+mkdir test_1L2Y
+cd test_1L2Y
 wget https://files.rcsb.org/download/1L2Y.pdb
 
-# Build gRINN Docker image
-docker build -t grinn .
+# Run all GROMACS steps inside container to avoid permission issues
+docker run -it --rm -v $(pwd):/host_data grinn bash
 
-# Step 1: Prepare protein structure with an AMBER force field
-docker run -v $(pwd):/data grinn gmx pdb2gmx -f /data/1L2Y.pdb -o /data/processed.gro -p /data/topol.top -ff amber99sb-ildn -water tip3p
+# Then run the following commands:
+cd /tmp
+cp /host_data/1L2Y.pdb .
+
+# Step 1: Prepare protein structure with AMBER force field
+gmx pdb2gmx -f 1L2Y.pdb -o processed.gro -p topol.top -ff amber99sb-ildn -water tip3p -ignh
 
 # Step 2: Define simulation box
-docker run -v $(pwd):/data grinn gmx editconf -f /data/processed.gro -o /data/boxed.gro -c -d 1.0 -bt cubic
+gmx editconf -f processed.gro -o boxed.gro -c -d 1.0 -bt cubic
 
 # Step 3: Add solvent
-docker run -v $(pwd):/data grinn gmx solvate -cp /data/boxed.gro -cs spc216.gro -o /data/solvated.gro -p /data/topol.top
+gmx solvate -cp boxed.gro -cs spc216.gro -o solvated.gro -p topol.top
 
-# Step 4: Energy minimization
-docker run -v $(pwd):/data grinn gmx grompp -f /app/mdp_files/minim.mdp -c /data/solvated.gro -p /data/topol.top -o /data/em.tpr
-docker run -v $(pwd):/data grinn gmx mdrun -v -deffnm /data/em
+# Step 4: Energy minimization (adjust -nt for your device)
+gmx grompp -f /app/mdp_files/minim.mdp -c solvated.gro -p topol.top -o em.tpr -maxwarn 5
+gmx mdrun -v -deffnm em -nt 8
 
 # Step 5: Short (toy) MD simulation
-docker run -v $(pwd):/data grinn gmx grompp -f /app/mdp_files/npt.mdp -c /data/em.gro -p /data/topol.top -o /data/md.tpr
-docker run -v $(pwd):/data grinn gmx mdrun -v -deffnm /data/md
+gmx grompp -f /app/mdp_files/prod.mdp -c em.gro -p topol.top -o md.tpr
+gmx mdrun -v -deffnm md
+
+# Copy results back to host
+cp *.gro *.top *.tpr *.xtc *.edr *.log /host_data/
+exit
 
 # Step 6: Run gRINN analysis
-mkdir results
-docker run -v $(pwd):/data grinn workflow /data/em.gro /data/results --tpr /data/md.tpr --traj /data/md.xtc
+
+docker run --user $(id -u):$(id -g) -w /data -v $(pwd):/data grinn workflow /data/em.gro /data/grinn_results --top /data/topol.top --traj /data/md.xtc
 
 # Step 7: View interactive results
-docker run -p 8051:8051 -v $(pwd):/data grinn dashboard /data/results
+docker run --user $(id -u):$(id -g) -p 8051:8051 -v $(pwd):/data grinn dashboard /data/grinn_results
 ```
 
 #### 🎯 Your Own Data Test
 ```bash
+
 # Use your protein/trajectory
-docker run -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results --tpr /data/your_system.tpr --traj /data/your_trajectory.xtc
+docker run --user $(id -u):$(id -g) -w /data -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results --top /data/your_system.top --traj /data/your_trajectory.xtc
 ```
 
 ### Skip Steps If:
@@ -111,6 +121,7 @@ docker run -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results -
 - ✅ Interactive web dashboard
 - ✅ Docker containerization
 - ✅ Basic documentation
+- ✅ GRO file support with proper CRYST1 record preservation (box information)
 
 ### Areas for Improvement
 - 🎯 **Testing**: Validate with diverse protein systems and simulation setups
@@ -129,8 +140,12 @@ docker run -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results -
 
 ### Custom Analysis
 ```bash
+# Ensure output directory exists and has proper permissions
+mkdir -p results
+chmod 755 results
+
 # Test specific parameters
-docker run -v $(pwd):/data -v $(pwd)/results:/results grinn \
+docker run --user $(id -u):$(id -g) -w /data -v $(pwd):/data -v $(pwd)/results:/results grinn \
   workflow /data/protein.pdb /results --initpairfiltercutoff 5.0 --create_pen --pen_cutoffs 1.0 2.0
 ```
 
