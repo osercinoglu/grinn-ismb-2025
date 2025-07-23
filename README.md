@@ -91,7 +91,7 @@ exit
 
 # Step 6: Run gRINN analysis
 
-docker run -w /data -v $(pwd):/data grinn workflow /data/em.gro /data/grinn_results --top /data/topol.top --traj /data/md.xtc
+docker run -v $(pwd):/data grinn workflow /data/em.gro /data/grinn_results --top /data/topol.top --traj /data/md.xtc
 
 # Step 7: View interactive results
 docker run -p 8051:8051 -v $(pwd):/data grinn dashboard /data/grinn_results
