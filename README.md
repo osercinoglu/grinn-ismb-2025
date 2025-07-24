@@ -49,9 +49,21 @@ gRINN is a comprehensive Python-based tool that:
 
 #### ⚡ Setup
 ```bash
-# Get gRINN (docker build will take time, so be patient...)
+# Get gRINN
 git clone https://github.com/osercinoglu/grinn.git
-cd grinn && docker build -t grinn -f Dockerfile.dev .
+cd grinn
+
+# Option 1: Quick build with default GROMACS 2024.1
+./build-docker.sh
+
+# Option 2: Build with specific GROMACS version (recommended for compatibility)
+./build-docker.sh --version 2023.3
+
+# Option 3: For Apple Silicon (M1/M2) Macs
+./build-docker.sh --platform linux/arm64 --version 2024.1
+
+# Option 4: Legacy Docker build (if build script doesn't work)
+docker build -t grinn -f Dockerfile.dev .
 ```
 
 #### 🧪 Real Protein Test with GROMACS Preparation (15-30 minutes)
@@ -62,7 +74,7 @@ cd test_1L2Y
 wget https://files.rcsb.org/download/1L2Y.pdb
 
 # Run all GROMACS steps inside container to avoid permission issues
-docker run -it --rm -v $(pwd):/host_data grinn bash
+docker run -it --rm -v $(pwd):/host_data grinn:gromacs-2024.1 bash
 
 # Then run the following commands:
 cd /tmp
@@ -90,18 +102,16 @@ cp *.gro *.top *.tpr *.xtc *.edr *.log /host_data/
 exit
 
 # Step 6: Run gRINN analysis
-
-docker run -v $(pwd):/data grinn workflow /data/em.gro /data/grinn_results --top /data/topol.top --traj /data/md.xtc
+docker run -v $(pwd):/data grinn:gromacs-2024.1 workflow /data/em.gro /data/grinn_results --top /data/topol.top --traj /data/md.xtc
 
 # Step 7: View interactive results
-docker run -p 8051:8051 -v $(pwd):/data grinn dashboard /data/grinn_results
+docker run -p 8051:8051 -v $(pwd):/data grinn:gromacs-2024.1 dashboard /data/grinn_results
 ```
 
 #### 🎯 Your Own Data Test
 ```bash
-
 # Use your protein/trajectory
-docker run -v $(pwd):/data grinn workflow /data/your_protein.pdb /data/results --top /data/your_system.top --traj /data/your_trajectory.xtc
+docker run -v $(pwd):/data grinn:gromacs-2024.1 workflow /data/your_protein.pdb /data/results --top /data/your_system.top --traj /data/your_trajectory.xtc
 ```
 
 ### Skip Steps If:
