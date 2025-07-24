@@ -4,6 +4,14 @@
 
 ---
 
+## **Note:** CollaborationFest at ISMB/ECCB 2025 is now concluded! 
+
+We extend our heartfelt gratitude to all participants who contributed to testing, improving, and validating gRINN during the collaborative development session. Your feedback and contributions have been invaluable in enhancing the tool's robustness and usability for the structural biology community.
+
+**For ongoing development, issues, and the latest updates, please visit the main gRINN repository:** **[https://github.com/osercinoglu/grinn](https://github.com/osercinoglu/grinn)**
+
+---
+
 ## 🎯 Project Overview
 
 This CollaborationFest project focuses on enhancing and expanding [**gRINN**](https://github.com/osercinoglu/grinn) (get Residue Interaction eNergies and Networks), a tool for calculating residue interaction energies and constructing protein energy networks from molecular dynamics simulations. We invite bioinformaticians, computational biologists, and MD simulation enthusiasts to join us in testing, improving, and documenting this resource for the structural biology community.
@@ -165,10 +173,13 @@ docker run -w /data -v $(pwd):/data -v $(pwd)/results:/results grinn \
 
 ### Project Lead
 - **Onur Serçinoğlu** - Original developer and maintainer
+- **Pemra Özbek** - Supervisor, tester
 
 ### Developer
-- **Tuğba Emine Eke** - Dashboard developer and maintainer
+- **Tuğba Emine Eke** - Dashboard developer, tester
 
 ### Contributors
-- *Add your name here when you contribute*
+- **Elif Naz Bingöl Aksu** - Tester
+- **Subhasree Majumder** - Tester
+- **Enrique Alanís** - Tester
 
